@@ -1,9 +1,9 @@
-const mdLinks = require('../');
+const mdLinks = require('../src/mdlinks.js');
 
 
-describe('mdLinks', () => {
+describe('mdLinks.readFile', () => {
 
-  it('should...', () => {
+  it('debería retornar', () => {
     console.log('FIX ME!');
   });
 
