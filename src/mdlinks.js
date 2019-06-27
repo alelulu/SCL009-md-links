@@ -1,5 +1,7 @@
 const marked = require('marked');
 const fs = require('fs');
+const fetch = require('node-fetch');
+const fetchUrl = fetch.fetchUrl;
 
 const readFile = (path) => {
   if(path.slice(-3) == ".md" || path.slice(-3) == ".MD") {
