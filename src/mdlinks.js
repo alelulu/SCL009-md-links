@@ -76,9 +76,18 @@ const validate = (links) => {
   }));
 };
 
+const stats = (links) => {
+  console.log('Total:', links.length)
+  let hrefFromLink = links.map(link => {
+    return link.href
+  })
+  let uniqueLinks = new Set(hrefFromLink)
+  console.log('Únicos:', uniqueLinks.size)
+}
 
 module.exports = { 
   readFile, 
   readDir,
-  validate
+  validate,
+  stats
 }

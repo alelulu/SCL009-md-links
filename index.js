@@ -14,13 +14,19 @@ if(userPath.includes('.')) {
         MDLinks.validate(res)
           .then(res2 => {
             if(res2) {
-              console.log('hola', res2);
+              console.log(res2);
             }
             else {
               console.log('No se encontraron links en tu archivo.')
             }
           })
       });
+  }
+  else if(process.argv[3] == '--stats') {
+    MDLinks.readFile(userPath)
+      .then(res => {
+        MDLinks.stats(res)
+      })
   }
   else {
     MDLinks.readFile(userPath)
