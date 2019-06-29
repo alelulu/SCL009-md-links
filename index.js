@@ -7,8 +7,27 @@ if(!path.isAbsolute(userPath)){
   userPath = path.resolve(userPath)
 }
 
-if(userPath.includes(".")) {
-  MDLinks.readFile(userPath);
+if(userPath.includes('.')) {
+  if(process.argv[3] == '--validate') {
+    MDLinks.readFile(userPath)
+      .then(res => {
+        MDLinks.validate(res)
+          .then(res2 => {
+            if(res2) {
+              console.log('hola', res2);
+            }
+            else {
+              console.log('No se encontraron links en tu archivo.')
+            }
+          })
+      });
+  }
+  else {
+    MDLinks.readFile(userPath)
+      .then(res => {
+        console.log(res);
+      });
+  }
 }
 else {
   MDLinks.readDir(userPath);

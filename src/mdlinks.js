@@ -4,47 +4,81 @@ const fetch = require('node-fetch');
 const fetchUrl = fetch.fetchUrl;
 
 const readFile = (path) => {
-  if(path.slice(-3) == ".md" || path.slice(-3) == ".MD") {
+  return new Promise((resolve, reject) => {
+    let links = [];
     fs.readFile(path, 'utf-8', function(err, data) {
       if(err) {
-          console.log(err);
+        reject(err);
       }
-      let links = [];
-      const renderer = new marked.Renderer();
-      renderer.link = function(href, title, text) {
-        links.push({
-          href: href,
-          text: text,
-          file: path
-        });
+      else {
+        const renderer = new marked.Renderer();
+        renderer.link = function(href, title, text) {
+          links.push({
+            href: href,
+            text: text,
+            file: path
+          });
+        };
+        marked(data, {renderer: renderer})
+        resolve(links);
       };
-      marked(data, {renderer: renderer})
-      console.log(links);
-    });
-  }
-  else {
-    console.log("Debe tener extensión .md")
-  }
-};
+
+    })
+  })
+}
 
 const readDir = (path) => {
-  let count = 0;
-  fs.readdir(path, 'utf-8', function(err, data) {
-    if(err) {
-      console.log(err);
-    }
-    console.log(data.toString());
-    //data es un array de strings (nombres de los archivos), 
-    //le hago forEach para recorrerlos y les agrego readfile
-    data.forEach(ele => {
-      if(ele.slice(-3) == ".md" || ele.slice(-3) == ".MD") {
-        readFile(path + "\\" + ele);
-        count++;
+  return new Promise((resolve, reject) => {
+    let count = 0;
+    let arrayOfLinks = [];
+    fs.readdir(path, 'utf-8', function(err, data) {
+      if(err) {
+        reject(err);
+      }
+      //data es un array de strings (nombres de los archivos), 
+      //le hago forEach para recorrerlos y les agrego readfile
+      data.forEach(ele => {
+        if(ele.slice(-3) == ".md" || ele.slice(-3) == ".MD") {
+          readFile(path + "\\" + ele)
+            .then(res => {
+              if(res) {
+                arrayOfLinks.push(res);
+              }
+            });
+          count++;
+        }
+        resolve(arrayOfLinks);
+      });
+      if(count == 0) {
+        console.log("No se encontraron archivos con extensión .md");
       }
     });
-    if(count == 0) {
-      console.log("No se encontraron archivos con extensión .md");
-    }
-  });
+  })
 };
-module.exports = { readFile, readDir }
+
+const validate = (links) => {
+  return Promise.all(links.map(link => {
+    return new Promise((resolve, reject) => {
+      fetch(link.href)
+        .then(res => {
+          if(res) {
+            link.status = res.status
+            link.ok = 'ok';
+            resolve(link);
+          }
+        })
+        .catch(err => {
+          link.status = null;
+          link.ok = 'fail';
+          resolve(link);
+        })
+    })
+  }));
+};
+
+
+module.exports = { 
+  readFile, 
+  readDir,
+  validate
+}
