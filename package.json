@@ -5,5 +5,24 @@
     "filehound": "^1.17.0",
     "marked": "^0.6.2",
     "node-fetch": "^2.6.0"
-  }
+  },
+  "description": "[Markdown](https://es.wikipedia.org/wiki/Markdown) es un lenguaje de marcado\r ligero muy popular entre developers. Es usado en muchísimas plataformas que\r manejan texto plano (GitHub, foros, blogs, ...), y es muy común\r encontrar varios archivos en ese formato en cualquier tipo de repositorio\r (empezando por el tradicional `README.md`).",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alelulu/SCL009-md-links.git"
+  },
+  "author": "Alejandra Silva",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/alelulu/SCL009-md-links/issues"
+  },
+  "homepage": "https://github.com/alelulu/SCL009-md-links#readme"
 }

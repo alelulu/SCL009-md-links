@@ -3,6 +3,26 @@ const fs = require('fs');
 const fetch = require('node-fetch');
 const filehound = require('filehound')
 
+const mdLinks = (path, validate) => {
+  return new Promise((resolve, reject) => {
+    if(validate){
+      readFile(path)
+        .then(links => {
+          validateLinks(links)
+            .then(validatedLinks => {
+              resolve(validatedLinks)
+            })
+        }) 
+    }
+    else {
+      readFile(path)
+        .then(links => {
+          resolve(links);
+        })
+    }
+  })
+}
+
 const readFile = (path) => {
   return new Promise((resolve, reject) => {
     let links = [];
@@ -33,7 +53,7 @@ const readDir = (path) => {
       .find();
 };
 
-const validate = (links) => {
+const validateLinks = (links) => {
   return Promise.all(links.map(link => {
     return new Promise((resolve, reject) => {
       fetch(link.href)
@@ -72,9 +92,8 @@ const stats = (links, validate) => {
 };
 
 
-module.exports = { 
-  readFile, 
+module.exports = {
   readDir,
-  validate,
-  stats
+  stats,
+  mdLinks
 };
