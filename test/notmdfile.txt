@@ -1,0 +1,1 @@
+In this example we are creating a file with no .md extension to show how the package works.

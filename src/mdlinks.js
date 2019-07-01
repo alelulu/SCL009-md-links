@@ -79,7 +79,7 @@ const stats = (links, validate) => {
     return link.href;
   })
   let uniqueLinks = new Set(hrefFromLink);
-  console.log('Uniques links:', uniqueLinks.size);
+  console.log('Unique links:', uniqueLinks.size);
   if(validate) {
     let count = 0;
     links.forEach(link => {
