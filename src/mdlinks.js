@@ -1,7 +1,7 @@
 const marked = require('marked');
 const fs = require('fs');
 const fetch = require('node-fetch');
-const fetchUrl = fetch.fetchUrl;
+const filehound = require('filehound')
 
 const readFile = (path) => {
   return new Promise((resolve, reject) => {
@@ -19,41 +19,18 @@ const readFile = (path) => {
             file: path
           });
         };
-        marked(data, {renderer: renderer})
+        marked(data, {renderer: renderer});
         resolve(links);
       };
-
-    })
-  })
-}
+    });
+  });
+};
 
 const readDir = (path) => {
-  return new Promise((resolve, reject) => {
-    let count = 0;
-    let arrayOfLinks = [];
-    fs.readdir(path, 'utf-8', function(err, data) {
-      if(err) {
-        reject(err);
-      }
-      //data es un array de strings (nombres de los archivos), 
-      //le hago forEach para recorrerlos y les agrego readfile
-      data.forEach(ele => {
-        if(ele.slice(-3) == ".md" || ele.slice(-3) == ".MD") {
-          readFile(path + "\\" + ele)
-            .then(res => {
-              if(res) {
-                arrayOfLinks.push(res);
-              }
-            });
-          count++;
-        }
-        resolve(arrayOfLinks);
-      });
-      if(count == 0) {
-        console.log("No se encontraron archivos con extensión .md");
-      }
-    });
-  })
+    return filehound.create()
+      .paths(path)
+      .ext('md')
+      .find();
 };
 
 const validate = (links) => {
@@ -62,7 +39,7 @@ const validate = (links) => {
       fetch(link.href)
         .then(res => {
           if(res) {
-            link.status = res.status
+            link.status = res.status;
             link.ok = 'ok';
             resolve(link);
           }
@@ -71,23 +48,33 @@ const validate = (links) => {
           link.status = null;
           link.ok = 'fail';
           resolve(link);
-        })
-    })
+        });
+    });
   }));
 };
 
-const stats = (links) => {
-  console.log('Total:', links.length)
+const stats = (links, validate) => {
+  console.log('Total links:', links.length);
   let hrefFromLink = links.map(link => {
-    return link.href
+    return link.href;
   })
-  let uniqueLinks = new Set(hrefFromLink)
-  console.log('Únicos:', uniqueLinks.size)
-}
+  let uniqueLinks = new Set(hrefFromLink);
+  console.log('Uniques links:', uniqueLinks.size);
+  if(validate) {
+    let count = 0;
+    links.forEach(link => {
+      if(link.ok !== 'ok') {
+        count++;
+      }
+    })
+    console.log('Broken links:', count);
+  }
+};
+
 
 module.exports = { 
   readFile, 
   readDir,
   validate,
   stats
-}
+};
