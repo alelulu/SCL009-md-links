@@ -99,4 +99,5 @@ To know how the application was made step by step you can visit the Projects in 
 ### Author
 
 Alejandra Silva
-![thanks]()
+
+![thanks](https://github.com/alelulu/SCL009-md-links/blob/master/src/img/thanks.PNG?raw=true)
