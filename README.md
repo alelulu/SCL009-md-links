@@ -25,11 +25,11 @@ You will get this response as an __object__ from the terminal from every link:
 
 Reading file example:
 
-![readingfile](./src/img/readme.png)
+![readingfile](https://github.com/alelulu/SCL009-md-links/blob/master/src/img/readme.PNG?raw=true)
 
 Reading directory example:
 
-![readingdir](./src/img/readme1.png)
+![readingdir](https://github.com/alelulu/SCL009-md-links/blob/master/src/img/readme1.PNG?raw=true)
 
 ### You can also add __options__ to get more information about your links
 
@@ -45,7 +45,7 @@ These options are:
 
   Example: 
   
-  ![validate](./src/img/readme2.png)
+  ![validate](https://github.com/alelulu/SCL009-md-links/blob/master/src/img/readme2.PNG?raw=true)
 
 
 ### __--stats__
@@ -58,7 +58,7 @@ These options are:
 
   Example: 
   
-  ![stats](./src/img/readme3.png)
+  ![stats](https://github.com/alelulu/SCL009-md-links/blob/master/src/img/readme3.PNG?raw=true)
 
 ### __--validate --stats__
 
@@ -70,18 +70,23 @@ These options are:
 
   Example: 
   
-  ![both](./src/img/readme4.png)
-
-## How does it work?
-
-To solve the problem, the logic that is used is shown in this diagram:
-
-![diagram](./src/img/diagram.png)
-
+  ![both](https://github.com/alelulu/SCL009-md-links/blob/master/src/img/readme4.PNG?raw=true)
 
 ## Dependencies
 
-- Node.js
 - FileHound
 - Marked
 - Node-Fetch
+
+## Development process
+
+### How does it work?
+
+To solve the problem, the logic that is used is shown in this diagram:
+
+![diagram](https://github.com/alelulu/SCL009-md-links/blob/master/src/img/diagram.png?raw=true)
+
+
+To know how the application was made step by step you can visit the Projects in this repository.
+
+[Visit the project planification](https://github.com/alelulu/SCL009-md-links/projects/1)
