@@ -1,4 +1,7 @@
 # mdLinks
+
+![mdimg](https://upload.wikimedia.org/wikipedia/commons/thumb/4/48/Markdown-mark.svg/250px-Markdown-mark.svg.png)
+
 Markdown is a lightweight markup language that you can use to add formatting elements to plaintext text documents. Created by John Gruber in 2004, Markdown is now one of the world’s most popular markup languages.
 
 
@@ -11,6 +14,8 @@ Don't worry! mdLinks is an `easy-to-use` solution. Don't lose your time testing 
 ## How to install mdLinks?
 
     npm i alelulu-md-links
+
+You can visit the NPM package page [here](https://www.npmjs.com/package/alelulu-md-links)
 
 ## How to use it? CLI (Command Line Interface)
 
