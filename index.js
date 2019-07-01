@@ -36,7 +36,12 @@ if(userPath.includes('.')) {
   else {
     MDLinks.mdLinks(userPath, false)
       .then(links => {
-        console.log(links);
+        if(links){
+          console.log(links);
+        }
+        else {
+          console.log('No links were found in your file.');
+        }
       });
   }
 }

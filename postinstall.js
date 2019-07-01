@@ -1,0 +1,1 @@
+console.log("(='w'=) THANKS FOR INSTALLING (='w'=)");

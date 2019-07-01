@@ -2,7 +2,12 @@
   "name": "alelulu-md-links",
   "version": "0.1.3",
   "dependencies": {
+    "babel-core": "^6.26.3",
+    "babel-jest": "^24.8.0",
+    "eslint": "^6.0.1",
+    "eslint-plugin-jest": "^22.7.1",
     "filehound": "^1.17.0",
+    "jest": "^24.8.0",
     "marked": "^0.6.2",
     "node-fetch": "^2.6.0"
   },
@@ -13,7 +18,10 @@
   },
   "devDependencies": {},
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest --coverage",
+    "eslint": "eslint --ext .js src/ test/",
+    "pretest": "npm run eslint",
+    "postinstall": "node postinstall.js"
   },
   "repository": {
     "type": "git",
