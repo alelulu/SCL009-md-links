@@ -95,3 +95,8 @@ To solve the problem, the logic that is used is shown in this diagram:
 To know how the application was made step by step you can visit the Projects in this repository.
 
 [Visit the project planification](https://github.com/alelulu/SCL009-md-links/projects/1)
+
+### Author
+
+Alejandra Silva
+![thanks]()
