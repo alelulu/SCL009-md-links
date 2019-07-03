@@ -5,7 +5,7 @@ const filehound = require('filehound')
 
 const mdLinks = (path, validate) => {
   return new Promise((resolve, reject) => {
-    if(validate){
+    if(validate && validate.validate){
       readFile(path)
         .then(links => {
           validateLinks(links)
@@ -33,10 +33,12 @@ const readFile = (path) => {
       else {
         const renderer = new marked.Renderer();
         renderer.link = function(href, title, text) {
+          let pathName = path.split('\\')
+
           links.push({
             href: href,
             text: text,
-            file: path
+            file: pathName[pathName.length-1]
           });
         };
         marked(data, {renderer: renderer});
@@ -46,6 +48,7 @@ const readFile = (path) => {
   });
 };
 
+//retorna promesa que devuelve un array con los archivos con ext .md
 const readDir = (path) => {
     return filehound.create()
       .paths(path)
@@ -53,6 +56,9 @@ const readDir = (path) => {
       .find();
 };
 
+//Every link (links) is passed like a promise.
+//we use promise.all to resolve them.
+//We get a array from the links
 const validateLinks = (links) => {
   return Promise.all(links.map(link => {
     return new Promise((resolve, reject) => {
@@ -60,13 +66,13 @@ const validateLinks = (links) => {
         .then(res => {
           if(res) {
             link.status = res.status;
-            link.ok = 'ok';
+            link.statusTxt = 'ok';
             resolve(link);
           }
         })
         .catch(err => {
           link.status = null;
-          link.ok = 'fail';
+          link.statusTxt = 'fail';
           resolve(link);
         });
     });
@@ -74,26 +80,30 @@ const validateLinks = (links) => {
 };
 
 const stats = (links, validate) => {
-  console.log('Total links:', links.length);
+  let linkStats = {}
+  linkStats.total = links.length;
   let hrefFromLink = links.map(link => {
     return link.href;
   })
   let uniqueLinks = new Set(hrefFromLink);
-  console.log('Unique links:', uniqueLinks.size);
-  if(validate) {
-    let count = 0;
+  linkStats.unique = uniqueLinks.size;
+  let count = 0;
+  if(validate && validate.validate) {
+    
     links.forEach(link => {
-      if(link.ok !== 'ok') {
+      if(link.statusTxt !== 'ok') {
         count++;
       }
     })
-    console.log('Broken links:', count);
+    linkStats.broken = count;
   }
+  return linkStats;
 };
 
-
 module.exports = {
+  readFile,
   readDir,
+  validateLinks,
   stats,
   mdLinks
 };

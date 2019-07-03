@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-const MDLinks = require('./src/mdlinks.js');
+const MDLinks = require('./src/md-links.js');
 const path = require('path');
 
 let userPath = process.argv[2];
@@ -11,13 +11,16 @@ if(!path.isAbsolute(userPath)) {
 if(userPath.includes('.')) {
   if((process.argv[3] == '--validate' && process.argv[4] == '--stats') 
   || (process.argv[3] == '--stats' && process.argv[4] == '--validate') )  {
-    MDLinks.mdLinks(userPath, true)
+    MDLinks.mdLinks(userPath, {validate: true})
       .then(links => {
-        MDLinks.stats(links, true);
+        let stats = MDLinks.stats(links, {validate: true});
+        console.log('Total links:', stats.total);
+        console.log('Unique links:', stats.unique);
+        console.log('Broken links:', stats.broken);
       })
   }
   else if(process.argv[3] == '--validate') {
-    MDLinks.mdLinks(userPath, true)
+    MDLinks.mdLinks(userPath, {validate: true})
       .then(links => {
         if(links) {
           console.log(links);
@@ -28,13 +31,15 @@ if(userPath.includes('.')) {
       })
   }
   else if(process.argv[3] == '--stats') {
-    MDLinks.mdLinks(userPath, false)
+    MDLinks.mdLinks(userPath, {validate: false})
       .then(links => {
-        MDLinks.stats(links, false)
+        let stats = MDLinks.stats(links, {validate: false});
+        console.log('Total links:', stats.total);
+        console.log('Unique links:', stats.unique);
       })
   }
   else {
-    MDLinks.mdLinks(userPath, false)
+    MDLinks.mdLinks(userPath, {validate: false})
       .then(links => {
         if(links){
           console.log(links);
@@ -52,15 +57,18 @@ else {
         if((process.argv[3] == '--validate' && process.argv[4] == '--stats') 
         || (process.argv[3] == '--stats' && process.argv[4] == '--validate')) {
           files.forEach(file => {
-            MDLinks.mdLinks(file, true)
+            MDLinks.mdLinks(file, {validate: true})
               .then(links => {
-                MDLinks.stats(links, true);
+                let stats = MDLinks.stats(links, {validate: true});
+                console.log('Total links:', stats.total);
+                console.log('Unique links:', stats.unique);
+                console.log('Broken links:', stats.broken);
               })
           });
         }
         else if(process.argv[3] == '--validate') {
           files.forEach(file => {
-            MDLinks.mdLinks(file, true)
+            MDLinks.mdLinks(file, {validate: true})
               .then(links => {
                 if(links) {
                   console.log(links);
@@ -73,16 +81,18 @@ else {
         }
         else if (process.argv[3] == '--stats') {
           files.forEach(file => {
-            MDLinks.mdLinks(file, false)
+            MDLinks.mdLinks(file, {validate: false})
             .then(links => {
-              MDLinks.stats(links, false);
+              let stats = MDLinks.stats(links, {validate: false});
+              console.log('Total links:', stats.total);
+              console.log('Unique links:', stats.unique);
             });
           });
 
         }
         else {
           files.forEach(file => {
-            MDLinks.mdLinks(file, false)
+            MDLinks.mdLinks(file, {validate: false})
               .then(links => {
                 console.log(links);
               });
