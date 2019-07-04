@@ -3,6 +3,9 @@ const fs = require('fs');
 const fetch = require('node-fetch');
 const filehound = require('filehound')
 
+//mdLinks is a promise that controls which promise is executed depeding of 
+//the parameters that recives.
+//It gets a path and an object with key validate
 const mdLinks = (path, validate) => {
   return new Promise((resolve, reject) => {
     if(validate && validate.validate){
@@ -23,6 +26,9 @@ const mdLinks = (path, validate) => {
   })
 }
 
+//If it finds a file, readFile reads the file. With marked we get the links from it.
+//an object is created and it gets pushed to an array with href, text and file as keys.
+//It resolves that array of objects.
 const readFile = (path) => {
   return new Promise((resolve, reject) => {
     let links = [];
@@ -48,7 +54,8 @@ const readFile = (path) => {
   });
 };
 
-//retorna promesa que devuelve un array con los archivos con ext .md
+//Filehound returns a promise that resolves an array with all the 
+//files with ext .md found in the directory
 const readDir = (path) => {
     return filehound.create()
       .paths(path)
@@ -56,9 +63,8 @@ const readDir = (path) => {
       .find();
 };
 
-//Every link (links) is passed like a promise.
-//we use promise.all to resolve them.
-//We get a array from the links
+//validateLinks returns a promise that resolves an array of objects (links) modified by
+//adding the keys status and statusTxt
 const validateLinks = (links) => {
   return Promise.all(links.map(link => {
     return new Promise((resolve, reject) => {
@@ -79,6 +85,9 @@ const validateLinks = (links) => {
   }));
 };
 
+//Stats allows you to know the amount of links' total, unique(, and broken if you add --validate)
+//It gets an array of links as objects and object with key: validate
+//Returns a new object with 2 or 3 keys (total, unique and/or broken)
 const stats = (links, validate) => {
   let linkStats = {}
   linkStats.total = links.length;

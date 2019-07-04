@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 const MDLinks = require('./src/md-links.js');
 const path = require('path');
+const chalk = require('chalk');
 
 let userPath = process.argv[2];
 
@@ -14,9 +15,9 @@ if(userPath.includes('.')) {
     MDLinks.mdLinks(userPath, {validate: true})
       .then(links => {
         let stats = MDLinks.stats(links, {validate: true});
-        console.log('Total links:', stats.total);
-        console.log('Unique links:', stats.unique);
-        console.log('Broken links:', stats.broken);
+        console.log(chalk.bold.green('Total links:'), stats.total);
+        console.log(chalk.bold.blue('Unique links:'), stats.unique);
+        console.log(chalk.bold.red('Broken links:'), stats.broken);
       })
   }
   else if(process.argv[3] == '--validate') {
@@ -26,7 +27,7 @@ if(userPath.includes('.')) {
           console.log(links);
         }
         else {
-          console.log('No links were found in your file.')
+          console.log(chalk.bold.red('No links were found in your file.'));
         }
       })
   }
@@ -34,8 +35,8 @@ if(userPath.includes('.')) {
     MDLinks.mdLinks(userPath, {validate: false})
       .then(links => {
         let stats = MDLinks.stats(links, {validate: false});
-        console.log('Total links:', stats.total);
-        console.log('Unique links:', stats.unique);
+        console.log(chalk.bold.green('Total links:'), stats.total);
+        console.log(chalk.bold.blue('Unique links:'), stats.unique);
       })
   }
   else {
@@ -45,7 +46,7 @@ if(userPath.includes('.')) {
           console.log(links);
         }
         else {
-          console.log('No links were found in your file.');
+          console.log(chalk.bold.red('No links were found in your file.'));
         }
       });
   }
@@ -60,9 +61,9 @@ else {
             MDLinks.mdLinks(file, {validate: true})
               .then(links => {
                 let stats = MDLinks.stats(links, {validate: true});
-                console.log('Total links:', stats.total);
-                console.log('Unique links:', stats.unique);
-                console.log('Broken links:', stats.broken);
+                console.log(chalk.bold.green('Total links:'), stats.total);
+                console.log(chalk.bold.blue('Unique links:'), stats.unique);
+                console.log(chalk.bold.red('Broken links:'), stats.broken);
               })
           });
         }
@@ -74,7 +75,7 @@ else {
                   console.log(links);
                 }
                 else {
-                  console.log('No links were found in your file.')
+                  console.log(chalk.bold.red('No links were found in your file.'));
                 }
               })
           });
@@ -84,8 +85,8 @@ else {
             MDLinks.mdLinks(file, {validate: false})
             .then(links => {
               let stats = MDLinks.stats(links, {validate: false});
-              console.log('Total links:', stats.total);
-              console.log('Unique links:', stats.unique);
+              console.log(chalk.bold.green('Total links:'), stats.total);
+              console.log(chalk.bold.blue('Unique links:'), stats.unique);
             });
           });
 
@@ -100,7 +101,7 @@ else {
         }
       }
       else {
-        console.log('No files with extension .md were found in the directory');
-      }
+        console.log(chalk.bold.red('No files with extension .md were found in the directory'));
+      };
     });
 };
