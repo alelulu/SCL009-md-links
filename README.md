@@ -11,17 +11,17 @@ These `Markdown` files usually contain _links_ that sometimes are broken or they
 
 Don't worry! mdLinks is an `easy-to-use` solution. Don't lose your time testing link by link. Just run the package and you will know if they are all working or not.
 
-## How to install mdLinks?
+## How to install
 
     npm i alelulu-md-links
 
 You can visit the NPM package page [here](https://www.npmjs.com/package/alelulu-md-links)
 
-## How to use it? CLI (Command Line Interface)
+## How to use it - CLI (Command Line Interface)
 
 The app can be executed in the following way through the terminal:
 
-    node index.js path-to-file.md
+    md-links path-to-file.md || md-links path-to-directory
 
 You will get this response as an __object__ from the terminal from every link:
 - href
@@ -30,13 +30,13 @@ You will get this response as an __object__ from the terminal from every link:
 
 Reading file example:
 
-![readingfile](https://github.com/alelulu/SCL009-md-links/blob/master/src/img/readme.PNG?raw=true)
+![readingfile](https://github.com/alelulu/SCL009-md-links/blob/master/src/img/path.PNG?raw=true)
 
 Reading directory example:
 
-![readingdir](https://github.com/alelulu/SCL009-md-links/blob/master/src/img/readme1.PNG?raw=true)
+![readingdir](https://github.com/alelulu/SCL009-md-links/blob/master/src/img/dir.PNG?raw=true)
 
-### You can also add __options__ to get more information about your links
+### You can also add __options__ when reading files or directories to get more information about your links
 
 These options are: 
 
@@ -46,11 +46,11 @@ These options are:
 
   To read files with .md extension with --validate option:
 
-      node index.js yourfile.md --validate
+      md-links yourfile.md --validate
 
   Example: 
   
-  ![validate](https://github.com/alelulu/SCL009-md-links/blob/master/src/img/readme2.PNG?raw=true)
+  ![validate](https://github.com/alelulu/SCL009-md-links/blob/master/src/img/validate.PNG?raw=true)
 
 
 ### __--stats__
@@ -59,11 +59,11 @@ These options are:
 
   To read files with .md extension with --stats option:
 
-      node index.js yourfile.md --stats
+      md-links yourfile.md --stats
 
   Example: 
   
-  ![stats](https://github.com/alelulu/SCL009-md-links/blob/master/src/img/readme3.PNG?raw=true)
+  ![stats](https://github.com/alelulu/SCL009-md-links/blob/master/src/img/stats.PNG?raw=true)
 
 ### __--validate --stats__
 
@@ -71,17 +71,19 @@ These options are:
 
   To read files with .md extension with --validate and --stats option:
 
-      node index.js yourfile.md --validate --stats
+      md-links yourfile.md --validate --stats
 
   Example: 
   
-  ![both](https://github.com/alelulu/SCL009-md-links/blob/master/src/img/readme4.PNG?raw=true)
+  ![both](https://github.com/alelulu/SCL009-md-links/blob/master/src/img/validate%20stats.PNG?raw=true)
 
 ## Dependencies
 
 - FileHound
 - Marked
 - Node-Fetch
+- Chalk
+- Jest
 
 ## Development process
 
@@ -89,7 +91,7 @@ These options are:
 
 To solve the problem, the logic that is used is shown in this diagram:
 
-![diagram](https://github.com/alelulu/SCL009-md-links/blob/master/src/img/diagram.png?raw=true)
+![diagram](https://github.com/alelulu/SCL009-md-links/blob/master/src/img/Diagram1.png?raw=true)
 
 
 To know how the application was made step by step you can visit the Projects in this repository.
