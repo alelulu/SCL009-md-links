@@ -103,5 +103,8 @@ else {
       else {
         console.log(chalk.bold.red('No files with extension .md were found in the directory'));
       };
-    });
+    })
+    .catch(err => {
+      console.log('no such directory found')
+    })
 };
