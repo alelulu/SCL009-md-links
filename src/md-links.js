@@ -40,7 +40,6 @@ const readFile = (path) => {
         const renderer = new marked.Renderer();
         renderer.link = function(href, title, text) {
           let pathName = path.split('\\')
-
           links.push({
             href: href,
             text: text,

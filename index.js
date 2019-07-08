@@ -23,7 +23,7 @@ if(userPath.includes('.')) {
   else if(process.argv[3] == '--validate') {
     MDLinks.mdLinks(userPath, {validate: true})
       .then(links => {
-        if(links) {
+        if(links.length > 0) {
           console.log(links);
         }
         else {
@@ -42,7 +42,7 @@ if(userPath.includes('.')) {
   else {
     MDLinks.mdLinks(userPath, {validate: false})
       .then(links => {
-        if(links){
+        if(links.length > 0){
           console.log(links);
         }
         else {
@@ -54,7 +54,7 @@ if(userPath.includes('.')) {
 else {
   MDLinks.readDir(userPath)
     .then(files => {
-      if(files) {
+      if(files.length > 0) {
         if((process.argv[3] == '--validate' && process.argv[4] == '--stats') 
         || (process.argv[3] == '--stats' && process.argv[4] == '--validate')) {
           files.forEach(file => {
